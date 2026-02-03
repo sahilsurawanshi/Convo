@@ -8,4 +8,5 @@ class AppRoutes {
   static String spacesScreen = "/spaces";
   static String postScreen = "/post";
   static String convoScreen = "/convo";
+  static String addpeoplesscreen = "/addpeoplesscreen";
 }

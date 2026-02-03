@@ -1,9 +1,12 @@
 import 'dart:ui';
 import 'package:convo/core/const/colours.dart';
 import 'package:convo/core/extension/num_extension.dart';
+import 'package:convo/features/chat/views/add_peoples_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:convo/core/const/fonts.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import '../../home/views/convo_screen.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -40,9 +43,10 @@ class ChatScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   20.heightBox,
                   _glassSearchField(),
+                  //ADD PEOPLES BUTTOM........
+                  _addPeopleButton(),
                   20.heightBox,
 
                   Expanded(
@@ -88,6 +92,34 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
+  // ✨ Discover someone new tile
+  Widget _addPeopleButton() {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => AddPeopleScreen());
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 8.h, bottom: 14.h),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(color: Colors.white.withOpacity(0.5)),
+          color: Colors.white.withOpacity(0.08),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          "+ Add people",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.sp,
+            fontFamily: Fonts.jSBold,
+            letterSpacing: 0.6,
+          ),
+        ),
+      ),
+    );
+  }
+
   // 🧊 Glass chat tile
   Widget _chatTile({
     required String name,
@@ -118,7 +150,6 @@ class ChatScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  // 👤 Avatar
                   Stack(
                     children: [
                       CircleAvatar(
@@ -142,10 +173,7 @@ class ChatScreen extends StatelessWidget {
                         ),
                     ],
                   ),
-
                   12.widthBox,
-
-                  // 📝 Name + message
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,8 +199,6 @@ class ChatScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // ⏰ time
                   Text(
                     time,
                     style: TextStyle(color: Colors.white54, fontSize: 11.sp),
@@ -187,7 +213,7 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-// ................................................TEXTFIELDS
+// 🔍 Glass search field
 Widget _glassSearchField() {
   return ClipRRect(
     borderRadius: BorderRadius.circular(18.r),

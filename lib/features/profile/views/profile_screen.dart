@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:convo/core/extension/num_extension.dart';
+import 'package:convo/features/profile/views/edit_profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:convo/core/const/fonts.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -145,7 +147,19 @@ class ProfileScreen extends StatelessWidget {
                   _glassSection(
                     child: Column(
                       children: [
-                        _action(Icons.edit, "Edit profile"),
+                        _action(
+                          Icons.edit,
+                          "Edit profile",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditProfileScreen(),
+                              ),
+                            );
+                          },
+                        ),
+
                         _action(Icons.lock_outline, "Privacy"),
                         _action(Icons.settings_outlined, "Settings"),
                         _action(Icons.logout, "Sign out", danger: true),
@@ -166,19 +180,22 @@ class ProfileScreen extends StatelessWidget {
   // ---------- components ----------
 
   Widget _glassSection({required Widget child}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(26.r),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(26.r),
-            border: Border.all(color: Colors.white.withOpacity(0.25)),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(26.r),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.10),
+              borderRadius: BorderRadius.circular(26.r),
+              border: Border.all(color: Colors.white.withOpacity(0.25)),
+            ),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );
@@ -197,14 +214,19 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _action(IconData icon, String title, {bool danger = false}) {
+  Widget _action(
+    IconData icon,
+    String title, {
+    bool danger = false,
+    VoidCallback? onTap,
+  }) {
     return ListTile(
       leading: Icon(icon, color: danger ? Colors.redAccent : Colors.white70),
       title: Text(
         title,
         style: TextStyle(color: danger ? Colors.redAccent : Colors.white),
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

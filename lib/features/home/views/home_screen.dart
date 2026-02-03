@@ -1,7 +1,7 @@
 import 'package:convo/core/components/navbar.dart';
 import 'package:convo/features/chat/views/chat_screen.dart';
 import 'package:convo/features/home/views/Post_Screen.dart';
-import 'package:convo/features/home/views/profile_screen.dart';
+import 'package:convo/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
